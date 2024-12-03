@@ -3,6 +3,7 @@ import logging
 import numpy as np
 import pandas as pd
 from keras.models import load_model, Model
+import tqdm
 from preprocessor.preprocessing import image_preprocessing
 from config import SAVED_FEATURES_DIR, TRAIN_DIR, TUNED_RESNET50_MODEL_PATH
 
@@ -51,20 +52,21 @@ def construct_features_dict_tuned(model):
     Construye un diccionario de características a partir de un conjunto de imágenes.
 
     Args:
-        image_folder (str): Carpeta que contiene las imágenes.
         model (keras.Model): Modelo ajustado para la extracción de características.
 
     Returns:
-        dict: Diccionario con nombres de imágenes como claves y vectores de características como valores.
+        list: Lista de vectores de características.
     """
-    features_dict = []
-    for img_name in os.listdir(TRAIN_DIR):
+    features = []
+    img_files = os.listdir(TRAIN_DIR)
+
+    for img_name in tqdm.tqdm(img_files, desc="Extracting ResNet50 features", unit="image"):
         img_path = os.path.join(TRAIN_DIR, img_name)
         if os.path.isfile(img_path):
             features = get_features_from_tuned_resnet(img_path, model)
-            features_dict.append(features)
+            features.append(features)
             logging.info(f"Extracted features for {img_name}")
-    return features_dict
+    return features
 
 def max_feature_metric(image_features):
     '''

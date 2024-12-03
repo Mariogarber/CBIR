@@ -14,6 +14,13 @@ import tqdm
 from config import SAVED_FEATURES_DIR, TRAIN_DIR
 
 def load_resnet50():
+    """
+    Carga el modelo ResNet50 preentrenado en ImageNet.
+
+    Returns:
+        keras.Model: Modelo ResNet50 preentrenado.
+    """
+
     model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
     model = Model(inputs=model.input, outputs=model.output)
 
@@ -49,11 +56,10 @@ def construct_features_dict_resnet(model):
     Construye un diccionario de características a partir de un conjunto de imágenes.
 
     Args:
-        image_folder (str): Carpeta que contiene las imágenes.
         model (keras.Model): Modelo ajustado para la extracción de características.
 
     Returns:
-        dict: Diccionario con nombres de imágenes como claves y vectores de características como valores.
+        list: Lista de vectores de características.
     """
     features = []
     img_files = os.listdir(TRAIN_DIR)
@@ -63,6 +69,7 @@ def construct_features_dict_resnet(model):
         if os.path.isfile(img_path):
             feature = get_features_from_resnet(img_path, model)
             features.append(feature)
+            logging.info(f"Features extracted for {img_name}")
     return features
 
 

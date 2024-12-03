@@ -79,7 +79,7 @@ def get_model(output_size):
     x = Flatten()(x)
     x = Dropout(0.3)(x)
     x = Dense(len(output_size), activation='softmax', kernel_initializer="he_normal")(x)
-    for layer in resnet_model.layers[:-5]:
+    for layer in resnet_model.layers[:-7]:
         layer.trainable = False
     model = Model(inputs=new_input, outputs=x)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
