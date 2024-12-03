@@ -44,7 +44,11 @@ def main():
         logging.info(f"Selected option: {option}")
 
         if option == 'train':
-            train_resnet50()
+            k = int(input("Please type the number of layers to do not freeze: "))
+            epochs = int(input("Please type the number of epochs: "))
+            patience = int(input("Please type the patience for early stopping (None to do not use EarlyStopping): "))
+            logging.info(f"Training model with k={k}, epochs={epochs}, patience={patience}")
+            train_resnet50(k=k, epochs=epochs, patience=patience)
             print('Training completed')
             logging.info("Training completed")
 
