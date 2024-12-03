@@ -1,0 +1,31 @@
+# Data processing and numerical libraries
+pandas
+numpy
+
+# Image processing and machine learning
+opencv-python
+scikit-image
+scikit-learn
+pywavelets
+pillow
+matplotlib
+transformers
+
+# Deep Learning frameworks
+tensorflow
+keras
+torch
+torchvision
+
+# Feature extraction and clustering
+faiss-cpu
+
+# Web application framework
+streamlit
+streamlit-cropper
+
+# Logging (built-in library, no installation needed)
+tqdm
+
+# Downloading ResNet50 model Re-tuned
+gdown

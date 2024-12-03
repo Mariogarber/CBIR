@@ -1,0 +1,32 @@
+2024-12-03 21:55:41 - root - INFO - Download completed
+2024-12-03 21:56:04 - root - INFO - Running the app
+2024-12-03 23:20:31 - root - INFO - Selected option: db
+2024-12-03 23:20:31 - root - INFO - Database generated
+2024-12-03 23:20:56 - root - INFO - Session ended
+2024-12-03 23:24:23 - root - INFO - Selected option: vit
+2024-12-03 23:24:23 - root - INFO - Extracting features...
+2024-12-03 23:24:23 - root - INFO - Loading model google/vit-base-patch16-224...
+2024-12-03 23:24:25 - root - INFO - vit-base-patch16-224 model loaded
+2024-12-03 23:26:03 - root - INFO - Selected option: vit
+2024-12-03 23:26:03 - root - INFO - Extracting features...
+2024-12-03 23:26:03 - root - INFO - Loading model google/vit-base-patch16-224...
+2024-12-03 23:26:05 - root - INFO - vit-base-patch16-224 model loaded
+2024-12-03 23:31:28 - root - INFO - Selected option: vit
+2024-12-03 23:31:28 - root - INFO - Extracting features...
+2024-12-03 23:31:28 - root - INFO - Loading model google/vit-base-patch16-224...
+2024-12-03 23:31:30 - root - INFO - vit-base-patch16-224 model loaded
+2024-12-03 23:34:44 - root - INFO - Features saved to C:\Users\mario\OneDrive\Documentos\UPM\7Cuatri\ArquitecturaImagenes\CBIR_project\CBIR\CBIR\saved_features\features_vit.csv
+2024-12-03 23:34:44 - root - INFO - Features extraction completed
+2024-12-03 23:34:44 - root - INFO - Extraction completed using the VIT model
+2024-12-03 23:34:54 - root - INFO - Selected option: app
+2024-12-03 23:34:54 - root - INFO - Database generated
+2024-12-03 23:34:54 - root - INFO - Running the app
+2024-12-03 23:36:17 - root - INFO - Selected option: app
+2024-12-03 23:36:17 - root - INFO - Database generated
+2024-12-03 23:36:17 - root - INFO - Running the app
+2024-12-03 23:36:55 - root - INFO - Selected option: app
+2024-12-03 23:36:55 - root - INFO - Database generated
+2024-12-03 23:36:55 - root - INFO - Running the app
+2024-12-03 23:37:37 - root - INFO - Selected option: app
+2024-12-03 23:37:37 - root - INFO - Database generated
+2024-12-03 23:37:37 - root - INFO - Running the app
