@@ -1,0 +1,13 @@
+
+cbir_env\Scripts\activate
+
+streamlit run app.py
+
+http://localhost:8501/
+
+
+Create a requirements.txt file
+pip install pipreqs
+pipreqs
+
+pip freeze > requirements.txt
