@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from config import IMAGE_SIZE
+import logging
 
 def load_image(image_path):
     """
@@ -79,6 +80,8 @@ def image_preprocessing(image_input, apply_canny=False):
         The preprocessed image.
     """
     # Call load_image only if the input is a string (file path)
+    logging.info(f"Processing input as file path: {image_input}")
+    logging.info(f"Reciving input of {type(image_input)} type")
     if isinstance(image_input, str):
         print(f"Processing input as file path: {image_input}")
         image = load_image(image_input)
@@ -90,13 +93,20 @@ def image_preprocessing(image_input, apply_canny=False):
     if len(image.shape) == 2:
         image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
 
+    logging.info(f"Image shape: {image.shape}")
     image = convert_to_rgb(image)
+    logging.info(f"Image converted to RGB")
     image = normalize_image(image)
+    logging.info(f"Image normalized")
     image = resize_image(image, (224, 224))
+    logging.info(f"Image resized to {image.shape}")
     if apply_canny: 
+        logging.info(f"Applying Canny edge detection")
         red_channel, green_channel, blue_channel, grey_image = extract_channels(image)
         grey_image_8bit = cv2.convertScaleAbs(grey_image, alpha=(255.0))
         grey_border = apply_canny_edge_detection(grey_image_8bit)
         image = np.stack((red_channel, green_channel, blue_channel, grey_border), axis=-1)
-    image[image < 0] = 0
+    if len(image[image < 0]) > 0:
+        logging.info(f"Negative values found in the image. Setting them to 0.")
+        image[image < 0] = 0
     return image
