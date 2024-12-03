@@ -11,6 +11,17 @@ from preprocessor.preprocessing import image_preprocessing
 
 
 def load_vit(model_name="google/vit-base-patch16-224"):
+    """
+    Carga el modelo Vision Transformer (ViT) preentrenado.
+
+    Args:
+        model_name (str): Nombre del modelo a cargar.
+
+    Returns:
+        transformers.AutoFeatureExtractor: Extractor de características del modelo.
+        transformers.AutoModel: Modelo Vision Transformer preentrenado.
+    """
+
     logging.info(f"Loading model {model_name}...")
     feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name)
@@ -19,15 +30,15 @@ def load_vit(model_name="google/vit-base-patch16-224"):
 
 def get_features_from_vit(image_input, model, feature_extractor):
     """
-    Extract features from an image using the ViT model.
+    Extrae las características de una imagen utilizando el modelo Vision Transformer (ViT).
 
     Args:
         image_input: Path to the image file or preloaded image as numpy array.
-        model: Pretrained ViT model.
-        feature_extractor: Feature extractor for the ViT model.
+        model (transformers.AutoModel): Modelo Vision Transformer preentrenado.
+        feature_extractor (transformers.AutoFeatureExtractor): Extractor de características del modelo.
 
     Returns:
-        numpy.ndarray: Extracted feature vector.
+        torch.Tensor: Embedding de la imagen.
     """
     # Check if the input is a numpy array
     if isinstance(image_input, np.ndarray):
@@ -47,6 +58,16 @@ def get_features_from_vit(image_input, model, feature_extractor):
     return embedding.squeeze().tolist()
 
 def construct_features_dict_vit(model, feature_extractor):
+    """
+    Construye una lista de características a partir de un conjunto de imágenes.
+
+    Args:
+        model (transformers.AutoModel): Modelo Vision Transformer preentrenado.
+        feature_extractor (transformers.AutoFeatureExtractor): Extractor de características del modelo.
+
+    Returns:   
+        list: Lista de vectores de características.
+    """
     features = []
     img_files = os.listdir(TRAIN_DIR)
 
@@ -60,11 +81,14 @@ def construct_features_dict_vit(model, feature_extractor):
 
 def save_features(features, filename="features_vit.csv"):
     """
-    Save extracted features to a CSV file without image names.
+    Guarda las características extraídas en un archivo CSV.
 
-    Args:
-        features (list): List of feature vectors.
-        filename (str): Output file name.
+    Args:   
+        features (list): Lista de vectores de características.
+        filename (str): Nombre del archivo CSV de salida.
+
+    Returns:
+        None
     """
     output_path = os.path.join(SAVED_FEATURES_DIR, filename)
     pd.DataFrame(features).to_csv(output_path, index=False, header=False)

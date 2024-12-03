@@ -90,8 +90,7 @@ def extract_resnet_features():
     Pipeline completo para la extracción de características utilizando el modelo ajustado ResNet50.
 
     Args:
-        model_path (str): Ruta al archivo del modelo guardado.
-        image_folder (str): Carpeta que contiene las imágenes.
+        None
 
     Returns:
         None

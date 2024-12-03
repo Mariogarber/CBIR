@@ -69,7 +69,17 @@ def load_dataset():
 
     return np.array(imgs_train), np.array(imgs_test), labels_train, labels_test
 
-def get_model(output_size):
+def get_model(output_size, k=7):
+    """
+    Crea un modelo de red neuronal convolucional basado en ResNet50.
+
+    Args:
+        output_size (set): Conjunto de etiquetas de salida.
+        k (int): Número de capas de ResNet50 hasta la ultima que congelas.
+
+    Returns:    
+        keras.Model: Modelo de red neuronal convolucional.
+    """
     input_shape = (224, 224, 4)
     resnet_model = ResNet50(include_top=False, input_tensor=None,)
     new_input = Input(shape=input_shape)
@@ -79,39 +89,85 @@ def get_model(output_size):
     x = Flatten()(x)
     x = Dropout(0.3)(x)
     x = Dense(len(output_size), activation='softmax', kernel_initializer="he_normal")(x)
-    for layer in resnet_model.layers[:-7]:
+    for layer in resnet_model.layers[:-k]:
         layer.trainable = False
     model = Model(inputs=new_input, outputs=x)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
-def train_model(x_train, labels, model):
+def train_model(x_train, labels, model, epochs=8, patience=3):
+    '''
+    Entrena el modelo con los datos de entrenamiento y las etiquetas.
+
+    Args:
+        x_train (numpy.ndarray): Datos de entrenamiento.
+        labels (list): Etiquetas de las imágenes.
+        model (keras.Model): Modelo de red neuronal convolucional.
+    
+    Returns:
+        keras.Model: Modelo entrenado.
+        sklearn.preprocessing.LabelEncoder: Codificador de etiquetas.
+    '''
     le = LabelEncoder()
     encoded_labels = le.fit_transform(labels)
     y_train = to_categorical(encoded_labels)
-    early_stopping = EarlyStopping(monitor='val_accuracy', patience=3, restore_best_weights=True)
-    history = model.fit(x_train, y_train, epochs=8, batch_size=32, validation_split=0.2, callbacks=[early_stopping])
-    return model, le
+    if patience is None:
+        history = model.fit(x_train, y_train, epochs=epochs, batch_size=32, validation_split=0.2)
+        return model, le
+    else:
+        early_stopping = EarlyStopping(monitor='val_accuracy', patience=patience, restore_best_weights=True)
+        history = model.fit(x_train, y_train, epochs=epochs, batch_size=32, validation_split=0.2, callbacks=[early_stopping])
+        return model, le
 
 def test_model(x_test, labels, model, le):
+    '''
+    Evalúa el modelo con los datos de prueba y las etiquetas.
+
+    Args:
+        x_test (numpy.ndarray): Datos de prueba.
+        labels (list): Etiquetas de las imágenes.
+        model (keras.Model): Modelo de red neuronal convolucional.
+        le (sklearn.preprocessing.LabelEncoder): Codificador de etiquetas.
+
+    Returns:
+        None
+    '''
     encoded_labels = le.transform(labels)
     y_test = to_categorical(encoded_labels)
     loss, accuracy = model.evaluate(x_test, y_test)
     print('Test loss:', loss)
     print('Test accuracy:', accuracy)
+    logging.info(f'Test loss: {loss}. Test accuracy: {accuracy}')
 
 def save_model(model):
+    '''
+    Guarda el modelo en el directorio especificado.
+
+    Args:
+        model (keras.Model): Modelo de red neuronal convolucional.
+
+    Returns:    
+        None
+    '''
     model_path = os.path.join(TUNED_RESNET50_MODEL_PATH)
     model.save(model_path)
     print(f"Model saved at {model_path}")
 
-def train_resnet50():
+def train_resnet50(k=7, epochs=8, patience=3):
+    '''
+    Función principal para entrenar un modelo de red neuronal convolucional basado en ResNet50.
+    '''
     logging.basicConfig(level=logging.INFO)
     logging.info('Starting training process...')
     
     x_train, x_test, labels_train, labels_test = load_dataset()
-    model = get_model(set(labels_train))
-    model, le = train_model(x_train, labels_train, model)
+    logging.info(f'Loaded {len(x_train)} training images and {len(x_test)} test images.')
+    logging.info(f'Labels: {set(labels_train)}')
+    logging.info(f'Freezing the last {k} layers of ResNet50.')
+    model = get_model(set(labels_train), k=k)
+    logging.info('Model created.')
+    logging.info(f'Training model for {epochs} epochs with early stopping patience of {patience}.')
+    model, le = train_model(x_train, labels_train, model, epochs=epochs, patience=patience)
     test_model(x_test, labels_test, model, le)
     save_model(model)
 

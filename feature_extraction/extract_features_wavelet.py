@@ -9,14 +9,15 @@ import logging
 
 def wavelet_transform(image, wavelet='haar'):
     """
-    Apply Wavelet Transform to an image and extract statistical features.
-
+    Realiza la transformada wavelet discreta 2D de una imagen.
     Args:
-        image (numpy.ndarray): Input image (grayscale).
-        wavelet (str): Type of wavelet to use (default: 'haar').
 
-    Returns:
-        list: Extracted features (mean and std for each coefficient set).
+        image (numpy.ndarray): Imagen de entrada (en escala de grises).
+         wavelet (str): Tipo de wavelet a usar (por defecto: 'haar').
+
+     Returns:
+
+            list: Características extraídas (media y desviación estándar para cada conjunto de coeficientes).
     """
     # Perform single-level 2D Discrete Wavelet Transform
     coeffs = pywt.dwt2(image, wavelet)
@@ -33,14 +34,14 @@ def wavelet_transform(image, wavelet='haar'):
 
 def extract_wavelet_features(image_input, wavelet='haar'):
     """
-    Extract Wavelet features from an image.
+    Extrae características de una imagen utilizando la transformada wavelet discreta 2D.
+    Se encarga de cargar la imagen, redimensionarla y extraer las características.
 
     Args:
-        image_input (str or numpy.ndarray): Path to the image file or preloaded image array.
-        wavelet (str): Type of wavelet to use (default: 'haar').
-
+        image_input: Path to the image file or preloaded image as numpy array.
+        wavelet (str): Tipo de wavelet a usar (por defecto: 'haar').
     Returns:
-        list: Extracted Wavelet features (mean and std for each coefficient set).
+        list: Características extraídas.
     """
     # Load image if a file path is provided
     if isinstance(image_input, str):
@@ -74,10 +75,14 @@ def extract_wavelet_features(image_input, wavelet='haar'):
 
 def extract_features_wavelet_main(wavelet='haar'):
     """
-    Extract Wavelet features from all images in the training directory.
+    Extrae las características de la transformada wavelet de las imágenes en el directorio de entrenamiento.
+    Guarda las características extraídas en un archivo CSV.
 
     Args:
-        wavelet (str): Type of wavelet to use (default: 'haar').
+        wavelet (str): Tipo de wavelet a usar (por defecto: 'haar').
+
+    Returns:
+        None
     """
     logging.info("Extracting Wavelet features...")
     image_files = os.listdir(TRAIN_DIR)

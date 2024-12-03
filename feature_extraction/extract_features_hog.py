@@ -9,6 +9,15 @@ import logging
 
 
 def get_hog_features(img_path):
+    """
+    Extrae características HOG de una imagen.
+
+    Args:
+        img_path (str): Ruta de la imagen.
+
+    Returns:   
+        numpy.ndarray: Vector de características HOG.
+    """
     img = image_preprocessing(img_path)
     if img.shape[-1] > 3:
         img = img[:, :, :3]
@@ -22,6 +31,13 @@ def get_hog_features(img_path):
 
 
 def construct_hog_features():
+    """
+    Construye un conjunto de características HOG a partir de un conjunto de imágenes.
+
+    Returns:
+        list: Lista de vectores de características HOG.
+    """
+
     features = []
     img_files = os.listdir(TRAIN_DIR)
 
@@ -35,11 +51,14 @@ def construct_hog_features():
 
 def save_hog_features(features, filename="features_hog.csv"):
     """
-    Save HOG features to a CSV file without image names.
+    Guarda las características HOG extraídas en un archivo CSV.
 
     Args:
-        features (list): List of feature vectors.
-        filename (str): Output file name.
+        features (list): Lista de vectores de características HOG.
+        filename (str): Nombre del archivo CSV de salida.
+
+    Returns:   
+        None
     """
     output_path = os.path.join(SAVED_FEATURES_DIR, filename)
     pd.DataFrame(features).to_csv(output_path, index=False, header=False)
