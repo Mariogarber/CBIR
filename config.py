@@ -14,6 +14,10 @@ FAISS_INDEX_DIR = os.path.join(BASE_DIR, "faiss_index")
 DB_PATH = os.path.join(BASE_DIR, "database")
 DB_FILE = "db.csv"
 LOGS_DIR = os.path.join(BASE_DIR, "logs")
+EVALUATION_DIR = os.path.join(BASE_DIR, "evaluation")
+TEST_LABEL_DIR = os.path.join(EVALUATION_DIR, "labels")
+TEST_LABELS_FILE = "train_labels.csv"
+APP_DIR = os.path.join(BASE_DIR, "ui")
 
 
 # Configuración de preprocesamiento
