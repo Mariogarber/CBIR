@@ -3,16 +3,20 @@
 ## 1. Introducción
 
 La búsqueda de imágenes basada en contenido (CBIR, por sus siglas en inglés) es un área activa de investigación con aplicaciones en diversos dominios, desde la gestión de bases de datos visuales hasta sistemas de reconocimiento en tiempo real. Un componente crítico de estos sistemas es la extracción de características efectivas que capturen de manera representativa las propiedades visuales de las imágenes. Estas características son transformadas en embeddings, vectores numéricos que permiten comparar imágenes en un espacio métrico utilizando índices de búsqueda eficientes como FAISS.
+
 En el marco de esta práctica, se ha desarrollado un sistema de recuperación de imágenes basado en contenido (CBIR). Este sistema tiene como objetivo identificar y recuperar imágenes similares a una consulta proporcionada por el usuario, empleando técnicas avanzadas de extracción de características, aprendizaje profundo y búsqueda eficiente en bases de datos.
+
 El proyecto combina múltiples tecnologías, como redes neuronales convolucionales (CNN) mediante modelos pre-entrenados, algoritmos de extracción de características como HOG (Histogram of Oriented Gradients) y transformadas Wavelet, así como métodos de búsqueda de vectores como FAISS (Facebook AI Similarity Search). Estas herramientas permiten analizar y representar imágenes de manera robusta, facilitando su comparación en espacios de alta dimensionalidad.
+
 A través de esta práctica, no solo se han explorado técnicas para la recuperación de imágenes, sino también conceptos fundamentales en el desarrollo de aplicaciones web interactivas, integrando el sistema en una interfaz basada en Streamlit. Esto permite al usuario final interactuar con el sistema de forma intuitiva, subiendo una imagen de consulta y visualizando las imágenes más similares recuperadas desde la base de datos.
+
 El presente trabajo describe el proceso completo llevado a cabo, desde la selección y preparación del dataset, la implementación técnica de las diferentes técnicas de extracción de características y su aplicación en el índice FAISS, hasta la evaluación exhaustiva de los resultados obtenidos. También se analizan los desafíos enfrentados durante el desarrollo del sistema, las soluciones implementadas y el impacto de cada enfoque en términos de precisión en clasificación y eficiencia computacional. Los hallazgos de este proyecto no solo contribuyen al desarrollo de sistemas CBIR más efectivos, sino que también destacan la importancia de una adecuada integración de tecnologías avanzadas en soluciones accesibles para el usuario final.	
 
 ## 2. Ejecución
 
 ### 2.0 Creación del entorno virtual (Opcional)
 
-Se recomienda crear un nuevo entorno virtual de Python, ya sea con anaconda o con otra herramienta. De esta forma evitamos posibles conflictos de librerías y otros problemas.
+Se recomienda crear un nuevo entorno virtual de Python, ya sea con anaconda o con otra herramienta. De esta forma evitamos posibles conflictos de librerías y otros problemas. Los comandos proporcionados tanto en este README como en el código se probaron y ejecutaron en entornos de conda, por lo que no aseguramos su funcionamiento si no se usa un entorno virtual de conda.
 
 ### 2.1 Instalación de las librerías
 
