@@ -14,8 +14,8 @@ def download_tuned_resnet50():
     handlers=[
         logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
     ],
-    ) 
-    url = 'https://drive.google.com/uc?id=1GfeS9NdZDy99FFYJI4e3r8qCQ4IjIIEg'
+    )
+    url = 'https://drive.google.com/uc?id=15-kTyciL_V5GdfRQMLYSwYbPFw6kax1o'
     output = TUNED_RESNET50_MODEL_PATH
 
     if os.path.exists(output):
