@@ -1,4 +1,4 @@
-**Proyecto CBIR creado por Adonis García y Mario García**
+*Proyecto CBIR creado por Adonis García y Mario García*
 
 ## 1. Introducción
 
@@ -14,55 +14,44 @@ El presente trabajo describe el proceso completo llevado a cabo, desde la selecc
 
 ## 2. Ejecución
 
-### 2.0 Creación del entorno virtual (Opcional)
+### 2.0 Creación del entorno virtual
 
 Se recomienda crear un nuevo entorno virtual de Python, ya sea con anaconda o con otra herramienta. De esta forma evitamos posibles conflictos de librerías y otros problemas. Los comandos proporcionados tanto en este README como en el código se probaron y ejecutaron en entornos de conda, por lo que no aseguramos su funcionamiento si no se usa un entorno virtual de conda.
 
 ### 2.1 Instalación de las librerías
 
-A través del comando `pip install -r requeriments.txt` se instalarán todas las librerías importadas y utilizadas en este proyecto.
+A través del comando pip install -r requeriments.txt se instalarán todas las librerías importadas y utilizadas en este proyecto.
 
 ### 2.2 Ejecución de la aplicación
 
-Para ejecutar la aplicación hemos desarrollado 2 formas distintas, una a través del archivo `main.py` y otra a través de `ui/app.py`. 
+#### 2.2.1 Si tu entorno virtual ha sido creado con Anaconda
 
-#### 2.2.1 Ejecución de la aplicación a través de `main.py`
-Ejecutando en la consola `python main.py` se abrirá la interfaz del proyecto, pudiendo acceder a partes como el reentrenamiento de la red, la extracción de características o la reconstrucción de la base de datos. **Esto último es necesario aplicarlo al menos la 1º vez que quieres ejecutar la aplicación**. También podrás correr la aplicación desde ese menú.
+Si tu entorno virtual ha sido creado con anaconda tienes dos opciones:
 
-#### 2.2.2 Ejecución de la aplicación a través de `ui/app.py`
-Ejecutando por consola el comando `python -m streamlit run ui/app.py` se lanzará la aplicación sin necesidad de pasar por el menú del proyecto. 
+##### A Ejecución de la aplicación a través de main.py
+Ejecutando en la consola python main.py se abrirá la interfaz del proyecto, pudiendo acceder a partes como el reentrenamiento de la red, la extracción de características o la reconstrucción de la base de datos. *Esto último es necesario aplicarlo al menos la 1º vez que quieres ejecutar la aplicación*. También podrás correr la aplicación desde ese menú.
 
-## 3. Descripción del Sistema De Ficheros
+##### B Ejecución de la aplicación a través de ui/app.py
+Ejecutando por consola el comando python -m streamlit run ui/app.py se lanzará la aplicación sin necesidad de pasar por el menú del proyecto. 
 
-### 3.1 Database
-Contiene la base de datos que relaciona los índices con las imágenes en local. También almacena los 5 índices generados.
+#### 2.2.1 Si tu entorno virtual no ha sido creado con Anaconda
 
-### 3.2 Docs (No importante)
-Contiene algunas anotaciones de los desarrolladores.
+Si no has empleado anaconda ejecuta la aplicación con el siguiente comando:
 
-### 3.3 Faiss_index
-Contiene el código necesario para generar los índices y almacenarlos. El código también crea la Base de Datos.
+` .\env\Scripts\python.exe -m streamlit run ui/app.py`
 
-### 3.4 Feature_extraction
-Contiene el código de los 5 métodos de extracción de características implementados. También maneja la carga y descarga de modelos.
+Sustituye env por el nombre de tu entorno virtual. En este caso, lanzar la app desde `main.py` no podrá funcionar.
 
-### 3.5 Images
-Dataset de las imágenes divididas en train y test.
-
-### 3.6 Logs
-Contiene el log de nuestra aplicación.
-
-### 3.7 Preproccessor
-Contiene el código requerido para preprocesar las imágenes en función del método que se vaya a aplicar.
-
-### 3.8 Ui
-Contiene el código referido a la aplicación que se lanza.
-
-### 3.9 Utils
-Contiene distintas funciones que proporcionan utilidades al proyecto.
-
-### 3.10 `config.py`
-Continene la configuración de los path de todos los archivos del proyecto.
-
-### 3.11 `main.py`
-Ejecuta el código del proyecto proporcionando diversas opciones al usuario.
+## 3. Descripción del sistema de ficheros
+1. database/: Contiene el archivo db.csv que relaciona los índices con las imágenes en local. También contiene los 5 índices generados.
+2. images/: Contiene las imágenes usadas, sin embargo en github no está completo debido a que el conjunto de TRAIN tiene más de 1000 elemetos. Sin embargo, aquí hay un enlace de Google Drive para descargarlo completamente: [Dataset de Imágenes](https://drive.google.com/drive/folders/1D0ac7yFOmwZdN_o_Rn9uXtiBpIbNuawZ?usp=sharing)
+3.  preprocessor/: Contiene el código requerido para preprocesar las imágenes en función del método que se vaya a aplicar.
+4. feature_extraction/: Contiene el código de los 5 métodos de extracción de características implementados. También maneja la carga y descarga de modelos.
+5. faiss_index/: Contiene el código necesario para generar los índices y almacenarlos. El código también crea el archivo db.csv.
+6. ui/: Carpeta dedicada a la interfaz de usuario proporcionada por los profesores. Contiene el código referido a la aplicación que se lanza.
+7. main.py: Archivo de punto de entrada del proyecto. Ejecuta el código del proyecto proporcionando diversas opciones al usuario.
+8.  requirements.txt: Para listar todas las dependencias del proyecto (librerías como FAISS, OpenCV, etc.).
+9. config.py: Continene la configuración de los path de todos los archivos del proyecto.
+10. logs/: Contiene el log de nuestra aplicación.
+11. utils/: Contiene distintas funciones que proporcionan utilidades al proyecto.
+12. evaluation/: Contiene las funciones para evaluar al modelo.
