@@ -28,37 +28,15 @@ Ejecutando en la consola `python main.py` se abrirá la interfaz del proyecto, p
 #### 2.2.2 Ejecución de la aplicación a través de `ui/app.py`
 Ejecutando por consola el comando `python -m streamlit run ui/app.py` se lanzará la aplicación sin necesidad de pasar por el menú del proyecto. 
 
-## 3. Descripción del Sistema De Ficheros
-
-### 3.1 Database
-Contiene la base de datos que relaciona los índices con las imágenes en local. También almacena los 5 índices generados.
-
-### 3.2 Docs (No importante)
-Contiene algunas anotaciones de los desarrolladores.
-
-### 3.3 Faiss_index
-Contiene el código necesario para generar los índices y almacenarlos. El código también crea la Base de Datos.
-
-### 3.4 Feature_extraction
-Contiene el código de los 5 métodos de extracción de características implementados. También maneja la carga y descarga de modelos.
-
-### 3.5 Images
-Dataset de las imágenes divididas en train y test.
-
-### 3.6 Logs
-Contiene el log de nuestra aplicación.
-
-### 3.7 Preproccessor
-Contiene el código requerido para preprocesar las imágenes en función del método que se vaya a aplicar.
-
-### 3.8 Ui
-Contiene el código referido a la aplicación que se lanza.
-
-### 3.9 Utils
-Contiene distintas funciones que proporcionan utilidades al proyecto.
-
-### 3.10 `config.py`
-Continene la configuración de los path de todos los archivos del proyecto.
-
-### 3.11 `main.py`
-Ejecuta el código del proyecto proporcionando diversas opciones al usuario.
+## 3. Descripción del sistema de ficheros
+1. `database/`: Contiene el archivo `db.csv` que relaciona los índices con las imágenes en local. También contiene los 5 índices generados.
+2. `images/`: No presente en GitHub debido a su tamaño, pero contiene las imágenes usadas
+3.  `preprocessor/`: Contiene el código requerido para preprocesar las imágenes en función del método que se vaya a aplicar.
+4. `feature_extraction/`: Contiene el código de los 5 métodos de extracción de características implementados. También maneja la carga y descarga de modelos.
+5. `faiss_index/`: Contiene el código necesario para generar los índices y almacenarlos. El código también crea el archivo `db.csv`.
+6. `ui/`: Carpeta dedicada a la interfaz de usuario proporcionada por los profesores. Contiene el código referido a la aplicación que se lanza.
+7. `main.py`: Archivo de punto de entrada del proyecto. Ejecuta el código del proyecto proporcionando diversas opciones al usuario.
+8.  `requirements.txt`: Para listar todas las dependencias del proyecto (librerías como FAISS, OpenCV, etc.).
+9. `config.py`: Continene la configuración de los path de todos los archivos del proyecto.
+10. `logs/`: Contiene el log de nuestra aplicación.
+11. `utils/`: Contiene distintas funciones que proporcionan utilidades al proyecto.
