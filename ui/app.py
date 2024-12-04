@@ -22,7 +22,7 @@ from feature_extraction.extract_features_hog import get_hog_features
 from feature_extraction.tuned_resnet50.extract_features_tuned_resnet import get_features_from_tuned_resnet, load_tuned_resnet
 from feature_extraction.extract_features_vit import load_vit, get_features_from_vit
 from feature_extraction.extract_features_wavelet import extract_wavelet_features
-from feature_extraction.extract_features_resnet import get_features_from_resnet
+from feature_extraction.extract_features_resnet import get_features_from_resnet, load_resnet50
 
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
@@ -52,7 +52,7 @@ def retrieve_image(img_query, feature_extractor, n_imgs=11):
         img_features = extract_wavelet_features(img_query, wavelet='haar')  # Assign to img_features
     elif feature_extractor == 'Extractor 3 (ResNet50)':  # ResNet50
         indexer = faiss.read_index(os.path.join(DB_PATH, 'feat_extract_resnet.index'))
-        img_features = get_features_from_resnet(img_query)
+        img_features = get_features_from_resnet(img_query, model=load_resnet50())
     elif feature_extractor == 'Extractor 4 (Tuned ResNet50)':
         indexer = faiss.read_index(os.path.join(DB_PATH, 'feat_extract_tuned_resnet.index'))
         img_features = get_features_from_tuned_resnet(img_query, model=load_tuned_resnet())
