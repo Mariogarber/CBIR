@@ -93,10 +93,10 @@ def get_model(output_size, k=7):
     for layer in resnet_model.layers[:-k]:
         layer.trainable = False
     model = Model(inputs=new_input, outputs=x)
-    model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
-def train_model(x_train, labels, model, epochs=8, patience=3):
+def train_model(x_train, labels, model, epochs=8, patience=None):
     '''
     Entrena el modelo con los datos de entrenamiento y las etiquetas.
 
@@ -154,7 +154,7 @@ def save_model(model):
     model.save(model_path)
     print(f"Model saved at {model_path}")
 
-def train_resnet50(k=7, epochs=8, patience=3):
+def train_resnet50(k=7, epochs=8, patience=None):
     '''
     Función principal para entrenar un modelo de red neuronal convolucional basado en ResNet50.
     '''
