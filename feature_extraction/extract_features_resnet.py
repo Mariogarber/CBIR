@@ -48,7 +48,6 @@ def get_features_from_resnet(image_input, model):
     feature = model.predict(img)
     feature = feature[0]  # Elimina la dimensión batch
     feature = feature.mean(axis=(0, 1))  # Promedia las características de todas las regiones de la imagen
-    print(f'Feature shape: {feature.shape}')
     return feature
 
 def construct_features_dict_resnet(model):

@@ -48,8 +48,6 @@ def get_features_from_vit(image_input, model, feature_extractor):
         # Otherwise, assume it's a path and open the image
         image = Image.open(image_input).convert("RGB")
 
-    # Preprocess the image
-    image = image_preprocessing(np.array(image))
     # Preprocess the image using the feature extractor
     inputs = feature_extractor(images=image, return_tensors="pt")
     with torch.no_grad():

@@ -83,10 +83,10 @@ def image_preprocessing(image_input, apply_canny=False):
     logging.info(f"Processing input as file path: {image_input}")
     logging.info(f"Reciving input of {type(image_input)} type")
     if isinstance(image_input, str):
-        print(f"Processing input as file path: {image_input}")
+        logging.info(f"Processing input as file path: {image_input}")
         image = load_image(image_input)
     else:
-        print(f"Processing input as numpy array. Shape: {image_input.shape}")
+        logging.info(f"Processing input as numpy array. Shape: {image_input.shape}")
         image = image_input
 
     # Process the image
