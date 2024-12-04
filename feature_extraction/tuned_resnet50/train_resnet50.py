@@ -8,9 +8,10 @@ from keras.layers import GlobalAveragePooling2D, Dense, Dropout, Conv2D, Flatten
 from keras.models import Model
 from keras.callbacks import EarlyStopping
 from keras.utils import to_categorical
+from keras.optimizers import Adam
 from sklearn.preprocessing import LabelEncoder
 from preprocessor.preprocessing import image_preprocessing
-from config import TRAIN_DIR, TEST_DIR, TUNED_RESNET50_MODEL_PATH
+from config import TRAIN_DIR, TEST_DIR, TUNED_RESNET50_MODEL_PATH, LOGS_DIR
 
 def load_dataset():
     """
@@ -55,7 +56,7 @@ def load_dataset():
         for filename in os.listdir(folder):
             img_path = os.path.join(folder, filename)
             if os.path.isfile(img_path):
-                img = image_preprocessing(img_path)  # Procesar la imagen
+                img = image_preprocessing(img_path, apply_canny=True)  # Procesar la imagen
                 label = extract_label_from_filename(filename)  # Extraer la etiqueta
                 images.append(img)
                 labels.append(label)
@@ -87,12 +88,12 @@ def get_model(output_size, k=7):
     x = resnet_model(x)
     x = Conv2D(filters=128, kernel_size=(3, 3), activation="relu")(x)
     x = Flatten()(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.7)(x)
     x = Dense(len(output_size), activation='softmax', kernel_initializer="he_normal")(x)
     for layer in resnet_model.layers[:-k]:
         layer.trainable = False
     model = Model(inputs=new_input, outputs=x)
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
 def train_model(x_train, labels, model, epochs=8, patience=3):
@@ -157,7 +158,14 @@ def train_resnet50(k=7, epochs=8, patience=3):
     '''
     Función principal para entrenar un modelo de red neuronal convolucional basado en ResNet50.
     '''
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+    ) 
     logging.info('Starting training process...')
     
     x_train, x_test, labels_train, labels_test = load_dataset()

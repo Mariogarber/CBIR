@@ -4,12 +4,21 @@ import numpy as np
 import faiss
 import re
 import os
-from config import DB_PATH, SAVED_FEATURES_DIR, TRAIN_DIR
+from config import DB_PATH, SAVED_FEATURES_DIR, TRAIN_DIR, LOGS_DIR
 import logging
 
 ####################################################################
 # 1. Cargar las características extraídas con el modelo ResNet     #
 ####################################################################
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+    ) 
 
 def load_features(features_path):
     # Cargar el archivo CSV

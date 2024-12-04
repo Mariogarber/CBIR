@@ -4,7 +4,7 @@ import pywt
 import cv2
 import pandas as pd
 from tqdm import tqdm
-from config import TRAIN_DIR, SAVED_FEATURES_DIR
+from config import TRAIN_DIR, SAVED_FEATURES_DIR, LOGS_DIR
 import logging
 
 def wavelet_transform(image, wavelet='haar'):
@@ -84,6 +84,14 @@ def extract_features_wavelet_main(wavelet='haar'):
     Returns:
         None
     """
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+    ) 
     logging.info("Extracting Wavelet features...")
     image_files = os.listdir(TRAIN_DIR)
     all_features = []

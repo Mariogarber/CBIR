@@ -4,7 +4,7 @@ import pandas as pd
 from transformers import AutoFeatureExtractor, AutoModel
 import torch
 from tqdm import tqdm
-from config import SAVED_FEATURES_DIR, TRAIN_DIR
+from config import SAVED_FEATURES_DIR, TRAIN_DIR, LOGS_DIR
 from PIL import Image
 import numpy as np
 from preprocessor.preprocessing import image_preprocessing
@@ -94,6 +94,14 @@ def save_features(features, filename="features_vit.csv"):
 
 
 def extract_vit_features():
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+    ) 
     logging.info("Extracting features...")
     feature_extractor, model = load_vit()
     features = construct_features_dict_vit(model, feature_extractor)

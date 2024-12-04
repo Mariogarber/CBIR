@@ -17,7 +17,7 @@ from skimage import color, exposure
 from transformers import AutoFeatureExtractor, AutoModel
 import logging
 from preprocessor.preprocessing import image_preprocessing
-from config import TRAIN_DIR, TUNED_RESNET50_MODEL_PATH, BASE_DIR, DB_PATH, DB_FILE
+from config import TRAIN_DIR, TUNED_RESNET50_MODEL_PATH, BASE_DIR, DB_PATH, DB_FILE, LOGS_DIR
 from feature_extraction.extract_features_hog import get_hog_features
 from feature_extraction.tuned_resnet50.extract_features_tuned_resnet import get_features_from_tuned_resnet, load_tuned_resnet
 from feature_extraction.extract_features_vit import load_vit, get_features_from_vit
@@ -75,6 +75,15 @@ def retrieve_image(img_query, feature_extractor, n_imgs=11):
 
 
 def main():
+
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+) 
     st.title('CBIR IMAGE SEARCH')
 
     print("-----------------------------------------")

@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from skimage import exposure, color
 from skimage.feature import hog
-from config import SAVED_FEATURES_DIR, TRAIN_DIR
+from config import SAVED_FEATURES_DIR, TRAIN_DIR, LOGS_DIR
 from tqdm import tqdm
 from preprocessor.preprocessing import image_preprocessing
 import logging
@@ -66,6 +66,14 @@ def save_hog_features(features, filename="features_hog.csv"):
 
 
 def extract_hog_features():
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+    ) 
     logging.info("Extracting HOG features...")
     features = construct_hog_features()
     save_hog_features(features)

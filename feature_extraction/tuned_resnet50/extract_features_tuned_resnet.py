@@ -5,7 +5,7 @@ import pandas as pd
 from keras.models import load_model, Model
 import tqdm
 from preprocessor.preprocessing import image_preprocessing
-from config import SAVED_FEATURES_DIR, TRAIN_DIR, TUNED_RESNET50_MODEL_PATH
+from config import SAVED_FEATURES_DIR, TRAIN_DIR, TUNED_RESNET50_MODEL_PATH, LOGS_DIR
 
 
 def load_tuned_resnet(model_path=TUNED_RESNET50_MODEL_PATH):
@@ -131,6 +131,14 @@ def extract_tuned_resnet_features():
     Returns:
         None
     """
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+    ) 
     model = load_tuned_resnet()
     features_dict = construct_features_dict_tuned(model)
     max_features = get_max_features(features_dict)

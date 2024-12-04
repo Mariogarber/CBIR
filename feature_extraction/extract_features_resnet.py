@@ -11,7 +11,7 @@ import cv2
 from keras.applications.resnet50 import ResNet50
 from preprocessor.preprocessing import image_preprocessing
 import tqdm
-from config import SAVED_FEATURES_DIR, TRAIN_DIR
+from config import SAVED_FEATURES_DIR, TRAIN_DIR, LOGS_DIR
 
 def load_resnet50():
     """
@@ -94,6 +94,14 @@ def extract_resnet_features():
     Returns:
         None
     """
+    logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(os.path.join(LOGS_DIR, "app.log")),  # Guarda logs en un archivo
+    ],
+    ) 
     model = load_resnet50()
     features_dict = construct_features_dict_resnet(model)
     save_features(features_dict)
